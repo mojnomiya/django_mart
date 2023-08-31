@@ -93,6 +93,7 @@ def remove_cart_item(request, product_id, cart_item_id):
 
 
 def cart(request, total=0, quantity=0, cart_items=None):
+    cart_items_count = CartItem.objects.filter(user=request.user).count()
     try:
         tax = 0
         grand_total = 0
@@ -115,5 +116,6 @@ def cart(request, total=0, quantity=0, cart_items=None):
         'cart_items': cart_items,
         'tax'       : tax,
         'grand_total': grand_total,
+        'cart_items_count': cart_items_count
     }
     return render(request, 'cart/cart.html', context)

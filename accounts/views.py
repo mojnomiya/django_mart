@@ -22,7 +22,9 @@ def register(request):
     return render(request, 'accounts/register.html', {'form':form})
 
 def profile(request):
-    return render(request, 'accounts/dashboard.html')
+    cart_items_count = CartItem.objects.filter(user=request.user).count()
+    context = {'cart_items_count': cart_items_count}
+    return render(request, 'accounts/dashboard.html', context)
 
 def user_login(request):
     if request.method == 'POST':
